@@ -5,7 +5,7 @@
 typedef struct Nodo{
     int valor;
     struct Nodo* sig;
-   // struct Nodo* ant;
+    struct Nodo* ant;
 }Nodo;
 Nodo* inicio = NULL;
 Nodo* final = NULL;
@@ -29,9 +29,15 @@ Nodo* crearLista(){
     return NULL;
 }
 
-void insertI(Nodo* n){
+void insert(Nodo* n){
     n->sig = L;
     L=n;   
+}
+void insertI(int x){
+    Nodo* nuevo =  createNodo();
+    nuevo->valor = x;
+    nuevo->sig = L;
+    nuevo->ant = NULL;
 }
 void llenar(int x){
     Nodo* nuevo =  NULL;
@@ -39,8 +45,8 @@ void llenar(int x){
         nuevo = createNodo();
         nuevo->valor = generateRamdomNumber();
         nuevo->sig = NULL;
-       // nuevo->ant = NULL;
-        insertI(nuevo);
+        nuevo->ant = NULL;
+        insert(nuevo);
     } 
 }
 void show(){
@@ -55,6 +61,8 @@ int main(){
     srand((unsigned)time(&t));
     L=crearLista();
     llenar(10);
+    show();
+    insertI(20);
     show();
     return 0;
 }
