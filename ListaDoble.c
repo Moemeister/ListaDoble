@@ -4,11 +4,12 @@
 
 typedef struct Nodo{
     int valor;
-    Nodo* sig;
-    Nodo* ant;
+    struct Nodo* sig;
+   // struct Nodo* ant;
 }Nodo;
 Nodo* inicio = NULL;
 Nodo* final = NULL;
+Nodo* L=NULL;
 //FUNCION PARA GENERAR UN NÚMERO RAMDOM
 int generateRamdomNumber(){
      return rand()%100;
@@ -16,23 +17,44 @@ int generateRamdomNumber(){
 //FUNCION CREAR NODO
 Nodo* createNodo(){
     Nodo* n = (Nodo*)malloc(sizeof(Nodo));
+     if(n==NULL){
+        printf("Error de memoria :(");
+        exit(0);
+    }
+
     return n;
 }
-void insertI(int x){
-    Nodo* n = createNodo();
-    n->valor = x;
-    n->sig = NULL;
-    n->ant = NULL;
-    
+//FUNCION CREAR LISTA
+Nodo* crearLista(){
+    return NULL;
+}
+
+void insertI(Nodo* n){
+    n->sig = L;
+    L=n;   
+}
+void llenar(int x){
+    Nodo* nuevo =  NULL;
+    for(int i=0; i < x; i++){
+        nuevo = createNodo();
+        nuevo->valor = generateRamdomNumber();
+        nuevo->sig = NULL;
+       // nuevo->ant = NULL;
+        insertI(nuevo);
+    } 
+}
+void show(){
+    Nodo* otroL = L;
+    while(otroL!=NULL){
+        printf("%d\n",otroL->valor);
+        otroL = otroL->sig;
+    }
 }
 int main(){
     time_t t;
     srand((unsigned)time(&t));
-    while (1){
-        printf("1-insertar al inicio\n");
-        printf("2-insertar al final\n");
-        printf("3-eliminar en i\n");
-    }
-
+    L=crearLista();
+    llenar(10);
+    show();
     return 0;
 }
